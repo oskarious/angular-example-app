@@ -1,0 +1,5 @@
+<app-landing-logged-in *ngIf="authed; else loggedOut"></app-landing-logged-in>
+
+<ng-template #loggedOut>
+  <app-landing-logged-out></app-landing-logged-out>
+</ng-template>

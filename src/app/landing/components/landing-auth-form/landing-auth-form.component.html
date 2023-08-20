@@ -1,0 +1,20 @@
+<form [formGroup]="authGroup" class="flex flex-col gap-2" (submit)="signin($event)">
+  <div class="form-control">
+    <label class="label">
+      <span class="label-text">Username</span>
+    </label>
+    <input
+      formControlName="username"
+      class="input"
+      [ngClass]="{ 'input-error': usernameControl?.invalid && usernameControl?.dirty }"
+      type="text"
+      placeholder="Name" />
+    <label *ngIf="usernameControl?.invalid && usernameControl?.dirty">
+      <span class="label-text-alt text-error">You need to provide a username of at least 3 characters</span>
+    </label>
+  </div>
+
+  <div>
+    <button class="btn btn-primary" type="submit" [disabled]="authGroup.invalid">Sign in</button>
+  </div>
+</form>

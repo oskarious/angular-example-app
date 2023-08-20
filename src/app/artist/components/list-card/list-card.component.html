@@ -1,0 +1,36 @@
+<a routerLink="/artist/{{ artist.id }}" class="card w-full shadow-md">
+  <figure><img [src]="artist.picture" alt="{{ artist.name }}'s profile image" /></figure>
+
+  <div class="card-body">
+    <div class="flex flex-row justify-between">
+      <h2 class="card-title text-2xl">{{ artist.name }}</h2>
+      <button (click)="previewVideo($event)" class="btn btn-primary btn-sm">Preview video</button>
+    </div>
+
+    <!-- Artist details -->
+    <div class="divider"></div>
+    <div class="flex flex-row justify-between">
+      <div class="flex flex-row items-baseline gap-2">
+        <span class="text-lg">{{ artist.price }}</span>
+        <span>SEK</span>
+      </div>
+
+      <div class="flex flex-row gap-2">
+        <app-tag *ngFor="let tag of artist.tags" [tag]="tag"></app-tag>
+      </div>
+    </div>
+  </div>
+</a>
+
+<!-- Dialogs require a unique ID to be targeted for open/close and keeping track of state -->
+<dialog class="modal" id="{{ artist.id }}_video_preview_modal" #videoModal>
+  <form method="dialog" class="modal-box p-0 h-4/6 w-11/12 max-w-4xl">
+    <!-- ngif the actual video so we don't start loading every single video when the page loads -->
+    <ng-container *ngIf="videoModal.open">
+      <app-video-player [video]="artist.video | youtubeUrl"></app-video-player>
+    </ng-container>
+  </form>
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>
