@@ -30,7 +30,6 @@ export class ArtistsService {
     return this.http.get<T>(`${this.API_BASE_URL}${url}`).pipe(
       catchError((err) => {
         // TODO: Show a snackbar or something to let user know to retry later
-        console.error(err);
         return [];
       }),
     );
@@ -47,7 +46,6 @@ export class ArtistsService {
           })
           .sort((a, b) => {
             return this.currentFilter.descending ? b.price - a.price : a.price - b.price;
-            return 0;
           });
 
         this.filteredSubscriber.next(filtered);

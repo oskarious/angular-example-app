@@ -14,7 +14,6 @@ export class AuthService {
   };
 
   isAuthed = () => {
-    console.log(this.userName !== '');
     return this.userName !== '';
   };
 }

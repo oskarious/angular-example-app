@@ -17,7 +17,6 @@ export class ListCardComponent {
     // Prevent us navigating via the card's link
     ev.preventDefault();
     ev.stopPropagation();
-    console.log('previewVideo', this.videoModal);
     this.videoModal.nativeElement.showModal();
   }
 }
