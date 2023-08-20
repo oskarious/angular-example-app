@@ -4,7 +4,7 @@ import { EventEmitter, Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthService {
-  userName: string = 'asd';
+  userName: string = '';
   authChanges = new EventEmitter<boolean>();
   constructor() {}
 
