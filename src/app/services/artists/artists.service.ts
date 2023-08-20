@@ -30,6 +30,7 @@ export class ArtistsService {
     return this.http.get<T>(`${this.API_BASE_URL}${url}`).pipe(
       catchError((err) => {
         // TODO: Show a snackbar or something to let user know to retry later
+        console.error(err);
         return [];
       }),
     );
@@ -55,7 +56,7 @@ export class ArtistsService {
 
   getArtistList(fresh: boolean): Observable<Artist[]> {
     if (!this.artistList$ || fresh) {
-      this.artistList$ = this.get<Artist[]>('/artists/list').pipe();
+      this.artistList$ = this.get<Artist[]>('/artists/list');
 
       // Build our filterable options
       this.filterableTags$ = this.artistList$.pipe(
