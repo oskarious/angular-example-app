@@ -1,0 +1,21 @@
+<div class="flex flex-col gap-2">
+  <span class="text-3xl font-light">Filter</span>
+
+  <form [formGroup]="filterGroup" class="flex flex-col gap-1">
+    <span class="text-xl font-semibold">Tags</span>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-2" formGroupName="tags">
+      <div *ngFor="let tag of filterableTags$ | async" class="form-control">
+        <label class="label cursor-pointer">
+          <span>{{ tag.name }}</span>
+          <input type="checkbox" class="toggle" [formControlName]="tag.id" />
+        </label>
+      </div>
+    </div>
+
+    <span class="text-xl font-semibold">Price</span>
+    <label class="label cursor-pointer">
+      <span>Order price by descending</span>
+      <input type="checkbox" class="toggle" formControlName="descending" />
+    </label>
+  </form>
+</div>

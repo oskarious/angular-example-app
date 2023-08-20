@@ -1,3 +1,11 @@
+<app-filter></app-filter>
+<div class="divider"></div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-  <app-list-card *ngFor="let artist of artists$ | async" [artist]="artist"></app-list-card>
+  <ng-container *ngIf="artists$ | async as artists; else noResults">
+    <app-list-card *ngFor="let artist of artists" [artist]="artist"></app-list-card>
+  </ng-container>
 </div>
+
+<ng-template #noResults>
+  <p>Sorry, no results found 😢</p>
+</ng-template>
