@@ -1,7 +1,7 @@
-<a routerLink="/artist/{{ artist.id }}" class="card w-full shadow-md">
+<a routerLink="/artist/{{ artist.id }}" class="card w-full shadow-md h-full">
   <figure><img [src]="artist.picture" alt="{{ artist.name }}'s profile image" /></figure>
 
-  <div class="card-body">
+  <div class="card-body flex flex-col justify-between">
     <div class="flex flex-row justify-between">
       <h2 class="card-title text-2xl">{{ artist.name }}</h2>
       <button (click)="previewVideo($event)" class="btn btn-primary btn-sm">Preview video</button>
@@ -9,13 +9,13 @@
 
     <!-- Artist details -->
     <div class="divider"></div>
-    <div class="flex flex-row justify-between">
-      <div class="flex flex-row items-baseline gap-2">
-        <span class="text-lg">{{ artist.price }}</span>
+    <div class="flex flex-col gap-2">
+      <div class="flex flex-row items-baseline gap-1">
+        <span class="text-xl">{{ artist.price | price }}</span>
         <span>SEK</span>
       </div>
 
-      <div class="flex flex-row gap-2">
+      <div class="flex flex-row flex-wrap gap-2">
         <app-tag *ngFor="let tag of artist.tags" [tag]="tag"></app-tag>
       </div>
     </div>
