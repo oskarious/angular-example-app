@@ -38,7 +38,7 @@ export class ArtistsService {
 
   private buildFilteredArtists() {
     if (this.artistList$) {
-      // Filter by tag groups, then sort by our only sorting option, price
+      // Filter by tags, then sort by our only sorting option, price
       this.artistList$.pipe(first()).subscribe((artists) => {
         const filtered = artists
           .filter((artist) => {
