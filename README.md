@@ -11,7 +11,7 @@ This is a couple of hours of work done on a sunday evening and thus is far from 
 ## To run:
 
 - Install dependencies (`yarn`)
-- Start a dev server with with `ng s`
+- Start a dev server with with `ng s` or `yarn start`
 - To view the `/list` route, provide a username
 
 ## Missing stuff:
