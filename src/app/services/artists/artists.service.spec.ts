@@ -183,7 +183,7 @@ describe('ArtistsService', () => {
   it('should filter on tags', (done: DoneFn) => {
     const obs = service.getArtistList(true);
 
-    const taggedArtists = artists.filter((a) => a.tags.some((t) => t.id === 0));
+    const taggedArtists = artists.filter((a) => a.tags.some((t) => t.id === 0 && t.group === 0));
     service.setArtistFilter({ descending: false, tags: [{ id: 0, group: 0, name: 'Artist' }] });
     obs.subscribe((arts) => {
       expect(arts.length).toBe(taggedArtists.length);

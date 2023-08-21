@@ -45,6 +45,7 @@ export class FilterComponent implements OnInit {
     this.tagsGroup.valueChanges.subscribe((value) => {
       const toFilterOn = this.filterableTags.filter((t) => value[t.id.toString()]);
       this.filter.tags = toFilterOn;
+      console.log(toFilterOn, this.filterableTags);
       this.doFilter();
     });
 

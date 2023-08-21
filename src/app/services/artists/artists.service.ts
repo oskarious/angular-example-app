@@ -34,14 +34,29 @@ export class ArtistsService {
     );
   }
 
+  private extractTagIdAndGroup(tag: Tag) {
+    return { id: tag.id, group: tag.group };
+  }
+
   private buildFilteredArtists() {
     if (this.artistList$) {
       // Filter by tags, then sort by our only sorting option, price
       this.artistList$.pipe(first()).subscribe((artists) => {
+        console.log(artists);
         const filtered = artists
           .filter((artist) => {
             if (!this.currentFilter.tags.length) return true;
-            return artist.tags.some((tag) => this.currentFilter.tags.map((t) => t.id).includes(tag.id));
+
+            // Ensure we are checking against both id and group, because different groups can have the same id.
+            // Not ideal 😬
+            const artistTags = artist.tags.map((t) => this.extractTagIdAndGroup(t));
+            const currentFilterTags = this.currentFilter.tags.map((t) => this.extractTagIdAndGroup(t));
+
+            return artistTags.some(
+              (tag) =>
+                currentFilterTags.map((t) => t.id).includes(tag.id) &&
+                currentFilterTags.map((t) => t.group).includes(tag.group),
+            );
           })
           .sort((a, b) => {
             return this.currentFilter.descending ? b.price - a.price : a.price - b.price;
