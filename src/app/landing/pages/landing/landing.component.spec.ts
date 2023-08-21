@@ -30,7 +30,9 @@ describe('LandingComponent', () => {
 
   it('should render the logged out component if not authed', () => {
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('app-landing-logged-out')).toBeTruthy();
+    expect(compiled.querySelector('app-landing-logged-out'))
+      .withContext('Have you set a default auth username?')
+      .toBeTruthy();
     expect(compiled.querySelector('app-landing-logged-in')).toBeFalsy();
   });
 
