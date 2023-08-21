@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  authChanges = new BehaviorSubject<string>('');
+  authChanges = new BehaviorSubject<string>('asd');
   constructor() {}
 
   setUserName = (userName: string) => {

@@ -9,9 +9,16 @@ import { Artist } from 'src/types/artist';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
+  hasListError: boolean = false;
   artists$: Observable<Artist[]> = new Observable<Artist[]>();
   constructor(private artistsService: ArtistsService) {}
   ngOnInit(): void {
     this.artists$ = this.artistsService.getArtistList(false);
+    this.artists$.subscribe({
+      error: (err) => {
+        console.error(err);
+        this.hasListError = true;
+      },
+    });
   }
 }

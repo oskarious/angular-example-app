@@ -1,11 +1,15 @@
 <app-filter></app-filter>
 <div class="divider"></div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-  <ng-container *ngIf="artists$ | async as artists; else noResults">
-    <app-list-card *ngFor="let artist of artists" [artist]="artist"></app-list-card>
-  </ng-container>
+<div *ngIf="artists$ | async as artists; else noResults" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <app-list-card *ngFor="let artist of artists" [artist]="artist"></app-list-card>
 </div>
 
 <ng-template #noResults>
-  <p>Sorry, no results found 😢</p>
+  <div *ngIf="!hasListError; else hasError" class="flex flex-row justify-center items-center w-full h-full">
+    <span class="loading loading-spinner loading-lg"></span>
+  </div>
+</ng-template>
+
+<ng-template #hasError>
+  <span>Something went wrong 😢</span>
 </ng-template>
