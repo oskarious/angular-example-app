@@ -1,4 +1,4 @@
-<a class="card w-full shadow-md h-full">
+<div class="card w-full shadow-md h-full">
   <figure><img [src]="artist.picture" alt="{{ artist.name }}'s profile image" /></figure>
 
   <div class="card-body flex flex-col justify-between">
@@ -20,7 +20,7 @@
       </div>
     </div>
   </div>
-</a>
+</div>
 
 <!-- Dialogs require a unique ID to be targeted for open/close and keeping track of state -->
 <dialog class="modal" id="{{ artist.id }}_video_preview_modal" #videoModal>
