@@ -10,9 +10,8 @@ export class LandingLoggedInComponent {
   userName: string = '';
 
   constructor(private authService: AuthService) {
-    this.userName = this.authService.userName;
     this.authService.authChanges.subscribe((auth) => {
-      this.userName = this.authService.userName;
+      this.userName = auth;
     });
   }
 }

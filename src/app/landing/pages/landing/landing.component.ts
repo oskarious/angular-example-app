@@ -9,9 +9,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LandingComponent {
   authed = false;
   constructor(private authService: AuthService) {
-    this.authed = this.authService.isAuthed();
     this.authService.authChanges.subscribe((auth) => {
-      this.authed = auth;
+      this.authed = auth != '';
     });
   }
 }
