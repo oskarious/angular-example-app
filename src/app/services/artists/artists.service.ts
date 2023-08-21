@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subscriber, catchError, first, map } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, first } from 'rxjs';
 import { Artist } from 'src/types/artist';
 import { Filter } from 'src/types/filter';
 import { Tag } from 'src/types/tag';
@@ -15,14 +15,11 @@ export class ArtistsService {
     descending: false,
     tags: [],
   };
-  private filterableTags$: Observable<Tag[]> = new Observable<Tag[]>();
+  private filterableTagsSubject: BehaviorSubject<Tag[]> = new BehaviorSubject<Tag[]>([]);
 
   private artistList$: Observable<Artist[]> | undefined;
 
-  private filteredSubscriber!: Subscriber<Artist[]>;
-  private filteredArtistList$: Observable<Artist[]> = new Observable<Artist[]>((s) => {
-    this.filteredSubscriber = s;
-  });
+  private filteredArtistListSubject: BehaviorSubject<Artist[]> = new BehaviorSubject<Artist[]>([]);
 
   constructor(private http: HttpClient) {}
 
@@ -49,7 +46,7 @@ export class ArtistsService {
             return this.currentFilter.descending ? b.price - a.price : a.price - b.price;
           });
 
-        this.filteredSubscriber.next(filtered);
+        this.filteredArtistListSubject.next(filtered);
       });
     }
   }
@@ -58,26 +55,23 @@ export class ArtistsService {
     if (!this.artistList$ || fresh) {
       this.artistList$ = this.get<Artist[]>('/artists/list');
 
-      // Build our filterable options
-      this.filterableTags$ = this.artistList$.pipe(
-        map((artists) => {
-          // Get unique list of tags
-          const tags: Tag[] = [];
-          for (const artist of artists) {
-            for (const tag of artist.tags) {
-              if (!tags.some((t) => t.id === tag.id)) {
-                tags.push(tag);
-              }
+      this.artistList$.pipe(first()).subscribe((artists) => {
+        // Get unique list of tags
+        const tags: Tag[] = [];
+        for (const artist of artists) {
+          for (const tag of artist.tags) {
+            if (!tags.some((t) => t.id === tag.id)) {
+              tags.push(tag);
             }
           }
-          return tags;
-        }),
-      );
+        }
+        this.filterableTagsSubject.next(tags);
+      });
 
       this.buildFilteredArtists();
     }
 
-    return this.filteredArtistList$;
+    return this.filteredArtistListSubject;
   }
 
   getCurrentFilter(): Filter {
@@ -90,6 +84,6 @@ export class ArtistsService {
   }
 
   getFilterableTags(): Observable<Tag[]> {
-    return this.filterableTags$;
+    return this.filterableTagsSubject;
   }
 }
