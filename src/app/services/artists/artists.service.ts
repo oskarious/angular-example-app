@@ -9,6 +9,7 @@ import { Tag } from 'src/types/tag';
   providedIn: 'root',
 })
 export class ArtistsService {
+  // FIXME: Should be provided via a config file/env variable
   API_BASE_URL = 'https://code-sample-80ad0e180e81.herokuapp.com' as const;
 
   private currentFilter: Filter = {

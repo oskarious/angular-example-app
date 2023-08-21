@@ -8,10 +8,13 @@ describe('TagComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TagComponent]
+      declarations: [TagComponent],
     });
     fixture = TestBed.createComponent(TagComponent);
+
     component = fixture.componentInstance;
+    component.tag = { group: 1, id: 1, name: 'tag' };
+
     fixture.detectChanges();
   });
 
